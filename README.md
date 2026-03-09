@@ -87,7 +87,12 @@ src/
 │   │   └── com/
 │   │       └── leo/
 │   │           └── servlet/
-│   │               └── CambioValutaServlet.java
+│   │               ├── CambioValutaServlet.java    (Servlet principale)
+│   │               ├── service/
+│   │               │   └── CurrencyRateService.java (API Frankfurter)
+│   │               └── util/
+│   │                   ├── CookieManager.java      (Gestione cookie)
+│   │                   └── ConversionHistory.java   (Storage storico)
 │   └── webapp/
 │       ├── index.html
 │       └── WEB-INF/
@@ -101,10 +106,12 @@ src/
 
 ### Componenti
 
-1. **index.html**: Pagina principale con form di conversione
-2. **CambioValutaServlet.java**: Logica di business per la conversione
-3. **File di memoria**: Storage testuale per le conversioni precedenti
-4. **Cookie**: Identificazione utente tramite UUID
+1. **CambioValutaServlet.java**: Servlet principale che gestisce le richieste GET e POST
+2. **CurrencyRateService.java**: Servizio per il recupero dei tassi di cambio live da API Frankfurter
+3. **CookieManager.java**: Utilità per la gestione dei cookie utente (UUID)
+4. **ConversionHistory.java**: Gestione del file di storage per lo storico conversioni
+5. **index.html**: Pagina principale con form di conversione
+6. **File di memoria**: Storage testuale per le conversioni precedenti
 
 ## 5. Storico Conversioni
 
@@ -135,7 +142,25 @@ Lo storico viene visualizzato come:
 
 ## 6. Tassi di Cambio
 
-I tassi di cambio (fissi per semplicità):
+### API Live (Frankfurter)
+
+L'applicazione utilizza l'API pubblica Frankfurter per ottenere i tassi di cambio in tempo reale:
+
+- **URL**: `https://api.frankfurter.dev/v1/latest?from=EUR&symbols=USD,GBP`
+- **Aggiornamento**: Ogni 10 richieste (caching lato server)
+- **Fonte**: European Central Bank
+- **Nessuna API key richiesta**
+
+### Comportamento
+
+1. Al primo accesso, vengono recuperati i tassi live dall'API
+2. I tassi vengono memorizzati in cache
+3. Ogni 10 richieste, i tassi vengono riaggiornati
+4. Se l'API fallisce, viene mostrato un messaggio di errore
+
+In caso di errore API, l'applicazione mostra un messaggio di errore.
+
+### Tassi di Riferimento (solo in caso di errore)
 
 - EUR → USD: 1.0856
 - EUR → GBP: 0.8567
