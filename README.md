@@ -1,13 +1,13 @@
 # Progetto Laboratorio TPSIT: Cambio Valuta
 
-## Panoramica dell'Architettura e Flussi di Lavoro
+## Panoramica dell'Architettura
 
-Di seguito è riportato un diagramma concettuale che illustra il funzionamento generale dell'applicazione su server Apache Tomcat.
-Il grafico evidenzia le interazioni tra il browser dell'utente, i vari componenti Java interni (Servlet, gestione Cookie, Storico e Servizio Tassi) e le API esterne di Frankfurter.
+Di seguito è riportato un diagramma concettuale che illustra il funzionamento generale dell'applicazione.
+Il grafico mostra le interazioni tra il browser dell'utente, i vari componenti Java interni (Servlet, gestione Cookie, Storico e Servizio Tassi) e le API esterne di Frankfurter.
 
 I percorsi colorati descrivono i due scenari principali: la prima visita dell'utente tramite richiesta **GET** (in blu) e l'invio del form di conversione tramite richiesta **POST** (in arancione).
 
-![Diagramma Architettura e Flussi Tomcat](./media/diagramma-funzionalita-applicazione.png)
+![Diagramma Architettura Tomcat](./media/diagramma-funzionalita-applicazione.png)
 
 ## 1. Analisi dei Dati
 
@@ -182,6 +182,16 @@ In caso di errore API, l'applicazione mostra un messaggio di errore.
 - Servlet API 5.0
 
 ## 8. Istruzioni per l'Esecuzione
+
+### Deployment e Demo Live
+
+L'applicazione è stata containerizzata tramite Docker e distribuita sulla piattaforma Railway per consentirne la visualizzazione web.
+
+Link all'applicazione: [Cambio Valuta Live](https://esercizio-laboratorio-tpsit-production.up.railway.app/CambioValuta)
+
+### Esecuzione locale
+
+Per eseguire l'applicazione in locale, è necessario installare Maven e Apache Tomcat 10+.
 
 1. Compilare l'applicazione: `mvn clean compile`
 2. Creare il WAR per Tomcat: `mvn clean package -DskipTests`
