@@ -1,5 +1,14 @@
 # Progetto Laboratorio TPSIT: Cambio Valuta
 
+## Panoramica dell'Architettura e Flussi di Lavoro
+
+Di seguito è riportato un diagramma concettuale che illustra il funzionamento generale dell'applicazione su server Apache Tomcat.
+Il grafico evidenzia le interazioni tra il browser dell'utente, i vari componenti Java interni (Servlet, gestione Cookie, Storico e Servizio Tassi) e le API esterne di Frankfurter.
+
+I percorsi colorati descrivono i due scenari principali: la prima visita dell'utente tramite richiesta **GET** (in blu) e l'invio del form di conversione tramite richiesta **POST** (in arancione).
+
+![Diagramma Architettura e Flussi Tomcat](./media/diagramma-funzionalita-applicazione.png)
+
 ## 1. Analisi dei Dati
 
 L'applicazione permette la conversione di importi in Euro (EUR) verso valute straniere, specificamente Dollaro Statunitense (USD) e Sterlina (GBP).
